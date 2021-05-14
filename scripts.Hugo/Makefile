@@ -133,12 +133,19 @@ regenBaseCheck:
 	@[ -L public ] || ln -s docs/ public
 	@[ -L scripts.Hugo/public ] || ln -s ../public/ scripts.Hugo/
 	rm -fr public/*
-	rm -fr scripts.Hugo/resources/_gen/*
+	# rm -fr scripts.Hugo/resources/_gen/*
 	rm -f public/CNAME
 	if [ -f CNAME ] ; then \
 		cp CNAME public/ ; \
 		[ -f public/CNAME ] || exit 32 ; \
-		fi \
+		fi 
+	cat scripts.Hugo/config.toml \
+		|grep ^title\ *= \
+		|grep .github.io \
+		&& rm -f public/CNAME \
+		|| ls -l public/CNAME
+
+
 
 rmXML := rm -f docs/sitemap.xml docs/images/favicons/browserconfig.xml docs/resources/images/favicons/browserconfig.xml `find docs/ -name index.xml`
 updateMakefile :=  [ ! -f scripts.Hugo/Makefile -o ! -f scripts.Hugo/themes/Makefile ] || \
@@ -161,7 +168,9 @@ um update_makefile :
 	(cd scripts.Hugo/themes/ && git pull  && cat Makefile > ../Makefile )
 
 rg:regen
-regen: byauthor wav m3u sed01 regen_pure
+regen: byauthor wav m3u sed01 regen_pure sed02
+	test ! -f favicon.ico || \
+	cp favicon.ico docs/
 
 s : server
 server:
@@ -198,7 +207,8 @@ server5:
 
 
 
-ifeq ($(wildcard scripts.Hugo/content/blog),)
+#ifeq ($(wildcard scripts.Hugo/content/blog),)
+ifeq ($(wildcard scripts.Hugo/content/hot/byauthor.md),)
 m3u  :
 wav:
 byauthor  :
@@ -344,6 +354,7 @@ sed00:
 		done
 
 sed01:
+	test ! -f sed01.my2buttoncopy2clip || \
 	for aa1 in `find scripts.Hugo/content/blog/ -name "*.md" |grep -v "end0.\\.md" ` ; do \
 		\
 		sed -i \
@@ -355,3 +366,6 @@ sed01:
 		\
 		done
 
+sed02:
+	test ! -f ./sed02.sh || \
+	./sed02.sh
