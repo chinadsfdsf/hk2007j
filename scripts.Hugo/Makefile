@@ -30,7 +30,9 @@ gitX:
 
 up:
 	pwd
-	nice -n 17 git push -u origin master
+	nice -n 17 git push -u origin main  \
+		|| nice -n 17 git push -u origin master \
+		|| nice -n 17 git push 
 e:
 	vim Makefile.env
 m:
@@ -172,8 +174,11 @@ regen: byauthor wav m3u sed01 regen_pure sed02
 	test ! -f favicon.ico || \
 	cp favicon.ico docs/
 
+list_ip:
+	ip a |grep inet |awk '{print $$2}'|awk -F/ '{print $$1}'
+
 s : server
-server:
+server: list_ip
 	@[ -f scripts.Hugo/config.toml ] || ( echo "why_no_41 file <scripts.Hugo/config.toml> exist ?" ; exit 41 )
 	cd scripts.Hugo/ && nice -n 17 hugo server --disableFastRender
 
@@ -191,17 +196,17 @@ pyHttp2:=SimpleHTTPServer
 pyHttp3:=http.server
 pyHttP:=$(pyHttp$(pythonVersion))
 s2: server2
-server2:
+server2: list_ip
 	[ -f scripts.Hugo/config.toml ] || ( echo "why_no_51 file <scripts.Hugo/config.toml> exist ?" ; exit 51 )
 	cd public/ && $(pyBin) -m $(pyHttP) 33221
 
 s3: server3
-server3:
+server3: list_ip
 	[ -f scripts.Hugo/config.toml ] || ( echo "why_no_51 file <scripts.Hugo/config.toml> exist ?" ; exit 51 )
 	cd public/ && $(pyBin) -m $(pyHttP) 33223
 
 s5: server5
-server5:
+server5: list_ip
 	[ -f scripts.Hugo/config.toml ] || ( echo "why_no_51 file <scripts.Hugo/config.toml> exist ?" ; exit 51 )
 	cd public/ && $(pyBin) -m $(pyHttP) 33225
 
@@ -321,24 +326,24 @@ all:
 	@echo "$${help_text9}"
 
 export sed01XXX11:=\
-	{{< my2m3uexist "music.xspf"        "blue"   "red"    " V单曲 " >}} \
+	{{< my2m3uexist "music.xspf"        "blue"   "red"    " V單曲 " >}} \
 	{{< my2m3uforce "/all.xspf"         "green"  "black"  " V全部 " >}} \
 	{{< my2m3uforce "/hot/helpxspf/"    "blue"   "red"    " 播放器 " >}} \
 	{{< mybr2 >}} \
-	{{< my2m3uforce "/hot/endothers/"   "green"  "blue"   " 目录 " >}} \
+	{{< my2m3uforce "/hot/endothers/"   "green"  "blue"   " 目錄 " >}} \
 	{{< my2m3uexist "music.m3u8"        "blue"   "red"    " M1 " >}} \
 	{{< my2m3uforce "/all.m3u8"         "green"  "black"  " M2 " >}} \
 
 export sed01XXX12:=\
-	{{< my2buttoncopy2clip "music.xspf"        "blue"   "red"    " 单曲 "  "复制 VLC 播放器使用的链接：单曲" >}} \
-	{{< my2buttoncopy2clip "/all.xspf"         "green"  "black"  " 全部 "  "复制 VLC 播放器使用的链接：全部" >}} \
-	{{< my2buttoncopy2clip "music.m3u8"        "blue"   "red"    " M3U  "    "复制 M3U 播放器使用的链接：单曲" >}} \
+	{{< my2buttoncopy2clip "music.xspf"        "blue"   "red"    " 單曲 "  "複製 VLC 播放器使用的鏈接：單曲" >}} \
+	{{< my2buttoncopy2clip "/all.xspf"         "green"  "black"  " 全部 "  "複製 VLC 播放器使用的鏈接：全部" >}} \
+	{{< my2buttoncopy2clip "music.m3u8"        "blue"   "red"    " M3U  "    "複製 M3U 播放器使用的鏈接：單曲" >}} \
 	{{< mybr2 >}} \
-	{{< my2buttoncopy2clip ""                  "green"  "black"  " 本页 "    "复制 本页的网址 " >}} \
-	{{< my2buttoncopy2clip "/"                 "black"  "red"    " 主站 "    "复制 主站的网址 " >}} \
+	{{< my2buttoncopy2clip ""                  "green"  "black"  " 本页 "    "複製 本頁的網址 " >}} \
+	{{< my2buttoncopy2clip "/"                 "black"  "red"    " 主站 "    "複製 主站的網址 " >}} \
 	{{< mybr2 >}} \
-	{{< my2buttongoto      "/hot/endothers/"   "blue"   "red"    " 月份"   "转到月份总目录" >}} \
-	{{< my2buttongoto      "/hot/alltags/"     "green"  "blue"   " 列表"   "转到文章总列表" >}} \
+	{{< my2buttongoto      "/hot/endothers/"   "blue"   "red"    " 月份"   "轉到月份總目錄" >}} \
+	{{< my2buttongoto      "/hot/alltags/"     "green"  "blue"   " 列表"   "轉到文章總列表" >}} \
 	{{< my2buttongoto      "/hot/helpxspf/"    "green"  "blue"   " 播放器" "如何使用 VLC 播放器或者 IPTV 播放器的教程" >}} \
 
 sed01XXX21:={{< my2m3uexist "music.xspf"
