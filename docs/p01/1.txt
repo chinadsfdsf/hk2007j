@@ -1,0 +1,4 @@
+mv    com_skype_raider_8_82_0_403_1250121737_minapi23_armeabi_v7a.apk        com_skype_raider_8_82_0_403_1250121737_minapi23_armeabi_v7a.apk.zip
+mv    com_skype_raider_8_82_0_403_1250121738_minapi23_x86.apk                com_skype_raider_8_82_0_403_1250121738_minapi23_x86.apk.zip
+mv    com_skype_raider_8_82_0_403_1250121739_minapi23_arm64_v8a.apk          com_skype_raider_8_82_0_403_1250121739_minapi23_arm64_v8a.apk.zip
+mv    com_skype_raider_8_82_0_403_1250121740_minapi23_x86_64.apk             com_skype_raider_8_82_0_403_1250121740_minapi23_x86_64.apk.zip

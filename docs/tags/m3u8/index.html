@@ -653,10 +653,26 @@
 <div id="footer" class='w3-container w3-theme-d5 '>
 
   <div class="w3-margin-bottom w3-row w3-mobile">
-      <!-- Site.Params.aboutUs  --> 
+      <!-- Site.Params.aboutUs  -->
+    <div class="w3-col w3-third">
+       <table style="border-collapse: collapse; border: hidden;" ><tr style="border: hidden;">  
+
+            </tr><tr style="border: hidden;"> 
+
+            </tr><tr style="border: hidden;">
+
+       
+
+        </tr><tr style="border: hidden;"> 
+      </tr></table>
+
+    </div> 
       <!-- Site.Params.recentPosts  -->
     <div class="w3-col w3-third">
-        <h4>Posts : 0.74.3 </h4>
+        <a style="font-size:120%">
+            Posts最近更新 : </a>
+        <a style="font-size:60%">
+            0.74.3 </a>
         <!-- range first Site.Params.footerNumOfPosts .Site.RegularPages "Section" "blog" -->
 
         <div class="w3-container " style="border:1px dotted Tomato;" >
@@ -670,8 +686,33 @@
         </div>
       <br> 
 
+    </div> 
+
+
+    <div class="w3-col w3-third">
+        <table style="border-collapse: collapse; border: hidden;" >
+
+          
+
+
+
+         </tr><tr style="border: hidden;">
+
+
+         
+
+          
+
+          
+
+         </tr>
+
+
+        </table>
+
     </div>    
       <!-- Site.Params.address  -->
+
 
   </div>  
 </div>  
@@ -722,10 +763,10 @@
          document.getElementById("btnback").style.visibility="visible";
       }
     </script>
-
     
-<a id="PPPdynTime01"></a>
-<a id="PPPdynTime02"></a>
+<a id="PPPdynTime01" style="font-size:60%;"></a>
+<a id="PPPdynTime02" style="font-size:60%;"></a>
+<a id="PPPdynTime03" style="font-size:60%;"></a>
 <script>
 (function () {
     function startTime001() {
@@ -736,7 +777,9 @@
         var dynTime00 = new Date();
         document.getElementById('PPPdynTime01').innerHTML = "SFO:" +
         dynTime00.toLocaleString("en-US", {timeZone: "America/Los_Angeles"});
-        document.getElementById('PPPdynTime02').innerHTML = "_HK:" +
+        document.getElementById('PPPdynTime02').innerHTML = "EST:" +
+        dynTime00.toLocaleString("en-US", {timeZone: "America/New_York"});
+        document.getElementById('PPPdynTime03').innerHTML = "_HK:" +
         dynTime00.toLocaleString("en-US", {timeZone: "Asia/Hong_Kong"});
     }
     startTime001();
